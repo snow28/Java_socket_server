@@ -44,6 +44,9 @@ public class Main extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
+        scoreField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -122,6 +125,26 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        scoreField.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                scoreFieldMouseMoved(evt);
+            }
+        });
+        scoreField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scoreFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Score:");
+
+        jButton1.setText("ShowScore");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,10 +174,17 @@ public class Main extends javax.swing.JFrame {
                                 .addGap(36, 36, 36)
                                 .addComponent(rightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(171, 171, 171)
+                                .addGap(127, 127, 127)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(loginButton)
-                                    .addComponent(startButton))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(scoreField, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(startButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton1)))))
                         .addGap(0, 77, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -185,9 +215,14 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(loginButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(startButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(scoreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jButton1))
+                .addGap(13, 13, 13)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(topButton)
@@ -236,6 +271,7 @@ public class Main extends javax.swing.JFrame {
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
   
         String msgout = "start";
+        score =0;
         try{
             dos.writeUTF(msgout);
         }catch(Exception e){
@@ -268,6 +304,18 @@ public class Main extends javax.swing.JFrame {
         this.username.setText("");
         this.password.setText("");
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void scoreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scoreFieldActionPerformed
+        
+    }//GEN-LAST:event_scoreFieldActionPerformed
+
+    private void scoreFieldMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scoreFieldMouseMoved
+        System.out.println("xxT");
+    }//GEN-LAST:event_scoreFieldMouseMoved
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        scoreField.setText(Integer.toString(score));
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     /**
@@ -319,6 +367,9 @@ public class Main extends javax.swing.JFrame {
                     gameConsole.setText("U are near the bounds of universe\n");
                 }else if(msgin.equals("aflert-delete")){
                     gameConsole.setText("");
+                }else if(msgin.equals("addScore")){
+                    score++;
+                    System.out.println("Score : " + score);
                 }else
                 {
                     clientWindow.setText(msgin);
@@ -335,10 +386,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bottomButton;
     private static javax.swing.JTextArea clientWindow;
     private static javax.swing.JTextArea gameConsole;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -347,6 +400,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField password;
     private javax.swing.JButton rightButton;
+    private javax.swing.JTextField scoreField;
     private javax.swing.JButton startButton;
     private javax.swing.JButton topButton;
     private javax.swing.JTextField username;

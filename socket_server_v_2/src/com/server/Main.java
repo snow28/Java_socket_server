@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
 
 
 public class Main extends javax.swing.JFrame {
@@ -16,8 +17,9 @@ public class Main extends javax.swing.JFrame {
     static int posY = 4;
     static int posX = 4;
     static int[] indexHelp = {0,10,20,30,40,50,60,70};  // we will use our array to indicate numbe of char we have to change during changing state of game
-    int minY = 2;
-    int minX = 2;
+    static int minY = 2;
+    static int minX = 2;
+    static int gameScore = 0;
     
     String startPoint = ""
                 + "XXXXXXXXX\n"
@@ -166,6 +168,7 @@ public class Main extends javax.swing.JFrame {
                 msgin = "";
                 msgin = dis.readUTF();
                 if(msgin.equals("start")){
+                   gameScore = 0;
                     dos.writeUTF(patternStart.toString());
                     patternGame = patternStart;
                 }else if(msgin.equals("top")){
@@ -260,11 +263,34 @@ public class Main extends javax.swing.JFrame {
                 }
                 
 
-                // Here we will draw and send our game
+                //here we will randomly found new place for mineral
                 patternGame.setCharAt(indexHelp[posY]+posX, 'p');
+                Random rand = new Random();
+                int  xr = rand.nextInt(9) + 1;
+                int yr = rand.nextInt(8) + 0;
+                
+                //System.out.println("Y: " + yr + ". X : " + xr);
                 
                 
                 
+                if(minY == posY && minX == posX){
+                    gameScore++;
+                    dos.writeUTF("addScore");
+                    if(yr == posY && xr == posX ){
+                        if( yr+2 <=7){
+                            minY = yr+2;
+                            minX = xr;
+                        }else{
+                           minY = yr-2;
+                           minX = xr; 
+                        }
+                    }else{
+                        minY = yr;
+                        minX = xr;
+                    }
+                }
+                System.out.println("Score: " + gameScore);
+                patternGame.setCharAt(indexHelp[minY] + minX, 'n');
                 
                 
                 dos.writeUTF(patternGame.toString());
