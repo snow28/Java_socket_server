@@ -15,7 +15,7 @@ public class Main extends javax.swing.JFrame {
     static DataOutputStream dos;
     static int posY = 4;
     static int posX = 4;
-    static int[] indexHelp = {0,9,17,25,33,41,49,57};  // we will use our array to indicate numbe of char we have to change during changing state of game
+    static int[] indexHelp = {0,10,20,30,40,50,60,70};  // we will use our array to indicate numbe of char we have to change during changing state of game
     int minY = 2;
     int minX = 2;
     
@@ -118,7 +118,7 @@ public class Main extends javax.swing.JFrame {
         StringBuilder patternStart = new StringBuilder(""
                 + "XXXXXXXXX\n"
                 + "XXXXXXXXX\n"
-                + "XXmooooXX\n"
+                + "XXnooooXX\n"
                 + "XXoooooXX\n"
                 + "XXoopooXX\n"
                 + "XXoooooXX\n"
@@ -127,7 +127,7 @@ public class Main extends javax.swing.JFrame {
         StringBuilder patternGame = new StringBuilder(""
                 + "XXXXXXXXX\n"
                 + "XXXXXXXXX\n"
-                + "XXmooooXX\n"
+                + "XXnooooXX\n"
                 + "XXoooooXX\n"
                 + "XXoopooXX\n"
                 + "XXoooooXX\n"
@@ -138,7 +138,7 @@ public class Main extends javax.swing.JFrame {
             {'X','X','X','X','X','X','X','X','X'},
             {'X','X','X','X','X','X','X','X','X'},
             {'X','X','o','o','o','o','o','X','X'},
-            {'X','X','m','o','o','o','o','X','X'},
+            {'X','X','n','o','o','o','o','X','X'},
             {'X','X','o','o','p','o','o','X','X'},
             {'X','X','o','o','o','o','o','X','X'},
             {'X','X','o','o','o','o','o','X','X'},
@@ -169,6 +169,13 @@ public class Main extends javax.swing.JFrame {
                     dos.writeUTF(patternStart.toString());
                     patternGame = patternStart;
                 }else if(msgin.equals("top")){
+                    for(int x=0; x<5; x++){
+                        if(indexHelp[posY+2]+(posX-2)+x >= indexHelp[posY+2] && indexHelp[posY+2]+(posX-2)+x <= indexHelp[posY+3]-2){
+                            patternGame.setCharAt(indexHelp[posY+2]+(posX-2)+x, 'X');
+                        }
+                    }
+                    
+                    patternGame.setCharAt(indexHelp[posY]+posX, 'o');
                     if(posY >= 1){
                         posY--;
                     }
@@ -199,6 +206,7 @@ public class Main extends javax.swing.JFrame {
 
                 // Here we will draw and send our game
                 patternGame.setCharAt(indexHelp[posY]+posX, 'p');
+                
                 
                 
                 
