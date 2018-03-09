@@ -169,9 +169,20 @@ public class Main extends javax.swing.JFrame {
                     dos.writeUTF(patternStart.toString());
                     patternGame = patternStart;
                 }else if(msgin.equals("top")){
-                    for(int x=0; x<5; x++){
-                        if(indexHelp[posY+2]+(posX-2)+x >= indexHelp[posY+2] && indexHelp[posY+2]+(posX-2)+x <= indexHelp[posY+3]-2){
-                            patternGame.setCharAt(indexHelp[posY+2]+(posX-2)+x, 'X');
+                    if(posY>=1){
+                        for(int x=0; x<5; x++){
+                            //if(indexHelp[posY+2]+(posX-2)+x >= indexHelp[posY+2] && indexHelp[posY+2]+(posX-2)+x <= indexHelp[posY+3]-2){
+                            if(posY+2 <= 7 && posX-2 >= 0 && posX-2+x <= 8){
+                                patternGame.setCharAt(indexHelp[posY+2]+(posX-2)+x, 'X');
+                            }
+                        }
+                        
+                        
+                        for(int x=0; x<5; x++){
+                            //if(indexHelp[posY+2]+(posX-2)+x >= indexHelp[posY+2] && indexHelp[posY+2]+(posX-2)+x <= indexHelp[posY+3]-2){
+                            if(posY-3 >= 0 && posX-2>=0 && posX-2+x <=8){
+                                patternGame.setCharAt(indexHelp[posY-3]+(posX-2)+x, 'o');
+                            }
                         }
                     }
                     
@@ -181,16 +192,41 @@ public class Main extends javax.swing.JFrame {
                     }
                     System.out.println("last Top. " + " X : " + posX + ". Y + :" + posY);
                 }else if(msgin.equals("left")){
+                    if(posX >= 1){
+                        for(int x=0; x<5; x++){
+                            if(posX+2<=8 && posY-2 >= 0 && posY-2+x <= 7 ){
+                                patternGame.setCharAt(indexHelp[posY-2+x]+(posX+2), 'X');
+                            }
+                        }
+                    }
+                    patternGame.setCharAt(indexHelp[posY]+posX, 'o');
                     if(posX >=1){
                         posX--;
                     }
                     System.out.println("last left. " + " X : " + posX + ". Y + :" + posY);
                 }else if(msgin.equals("right")){
+                    if(posX <= 7){
+                        for(int x=0; x<5; x++){
+                            if(posX-2>= 0 && posY-2 >= 0 && posY-2+x <= 7 ){
+                                patternGame.setCharAt(indexHelp[posY-2+x]+(posX-2), 'X');
+                            }
+                        }
+                    }
+                    
+                    patternGame.setCharAt(indexHelp[posY]+posX, 'o');
                     if(posX <=7){
                         posX++;
                     }
                     System.out.println("last right. " + " X : " + posX + ". Y + :" + posY);
                 }else if(msgin.equals("bottom")){
+                    if(posY <= 6){
+                        for(int x=0; x<5; x++){
+                            if(posY-2 >= 0 && posX-2 >= 0 && posX-2+x<= 8){
+                                patternGame.setCharAt(indexHelp[posY-2]+(posX-2+x), 'X');
+                            }
+                        }
+                    }
+                    patternGame.setCharAt(indexHelp[posY]+posX, 'o');
                     if(posY <=6){
                         posY++;
                     }
