@@ -13,6 +13,18 @@ public class Main extends javax.swing.JFrame {
     static Socket s;
     static DataInputStream dis;
     static DataOutputStream dos;
+    int posY = 4;
+    int posX = 4;
+    
+    String startPoint = ""
+                + "XXXXXXXXX\n"
+                + "XXXXXXXXX\n"
+                + "XXoooooXX\n"
+                + "XXmooooXX\n"
+                + "XXoopooXX\n"
+                + "XXoooooXX\n"
+                + "XXoooooXX\n"
+                + "XXXXXXXXX\n";
     
     
     
@@ -77,8 +89,6 @@ public class Main extends javax.swing.JFrame {
                 + "XXoooooXX\n"
                 + "XXoooooXX\n"
                 + "XXXXXXXXX\n";
-        
-        
         try{
             dos.writeUTF(msgout);
         }catch(Exception e){
@@ -112,6 +122,17 @@ public class Main extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        
+        String msgout = ""
+                + "XXXXXXXXX\n"
+                + "XXXXXXXXX\n"
+                + "XXoooooXX\n"
+                + "XXoooooXX\n"
+                + "XXoopooXX\n"
+                + "XXoooooXX\n"
+                + "XXoooooXX\n"
+                + "XXXXXXXXX\n";
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -129,10 +150,10 @@ public class Main extends javax.swing.JFrame {
             String msgin = "";
             while(!msgin.equals("exit")){
                 msgin = dis.readUTF();
-                if(msgin.equals("test")){
-                    dos.writeUTF("TEST");
+                if(msgin.equals("start")){
+                    dos.writeUTF(msgout);
                 }
-                consoleWindow.setText(consoleWindow.getText().trim() + "\n" + msgin);
+                consoleWindow.setText(consoleWindow.getText().trim() + "\n" + msgin + "\n");
             }
         }catch(Exception e){
             e.printStackTrace();
